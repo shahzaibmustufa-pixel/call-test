@@ -1,121 +1,195 @@
 <?php
-require_once 'config.php';
+$page_title = 'Dashboard';
+$active_page = 'dashboard';
+require_once 'includes/config.php';
+require_once 'includes/functions.php';
+
+if (!isLoggedIn()) {
+    header('Location: login.php');
+    exit();
+}
+
 $db = getDB();
+
+// Fetch basic stats
+$total_posts = $db->query("SELECT COUNT(*) FROM posts")->fetchColumn();
+$total_users = $db->query("SELECT COUNT(*) FROM users")->fetchColumn();
+$total_categories = $db->query("SELECT COUNT(*) FROM categories")->fetchColumn();
+$total_views = $db->query("SELECT SUM(views) FROM posts")->fetchColumn() ?? 0;
+
+// Fetch recent posts
+$recent_posts = $db->query("SELECT p.*, c.name as category_name FROM posts p LEFT JOIN categories c ON p.category_id = c.id ORDER BY p.created_at DESC LIMIT 5")->fetchAll();
+
+include_once 'partials/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Knowledge-hud - Latest Articles</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body style="background: var(--bg-body); color: var(--text-main);">
-    
-    <nav class="navbar">
-        <div class="container nav-container">
-            <a href="index.php" class="logo">Knowledge<span>-hud</span></a>
-            <ul class="nav-links">
-                <li><a href="index.php" class="nav-link active">Home</a></li>
-                <li><a href="blog.php" class="nav-link">Blog</a></li>
-                <li><a href="categories.php" class="nav-link">Categories</a></li>
-            </ul>
-        </div>
-    </nav>
 
-    <!-- 🟡 FRONTEND FIXES 3: FEATURED ARTICLE SECTION -->
-    <header id="hero" class="hero section-padding" style="min-height: 85vh; padding-top: 120px; display: flex; align-items: center; position: relative; overflow: hidden; background: #0f172a;">
-        <!-- Background Overlay -->
-        <div id="hero-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; transition: background 0.5s ease; filter: brightness(0.4);"></div>
+<div class="dashboard-header" style="margin-bottom: 30px;">
+    <h1 style="font-size: 24px; font-weight: 800;">Overview</h1>
+    <p style="color: var(--text-muted);">Welcome back! Here's what's happening with your site today.</p>
+</div>
+
+<?php displayFlash(); ?>
+
+<!-- Stats Grid -->
+<div class="stats-grid">
+    <div class="card stat-card">
+        <div class="stat-icon" style="background: rgba(67, 97, 238, 0.1); color: var(--primary);">
+            <i class="fas fa-file-alt"></i>
+        </div>
+        <div>
+            <div style="font-size: 14px; color: var(--text-muted); font-weight: 500;">Total Posts</div>
+            <div style="font-size: 24px; font-weight: 800;"><?php echo $total_posts; ?></div>
+        </div>
+    </div>
+    <div class="card stat-card">
+        <div class="stat-icon" style="background: rgba(46, 196, 182, 0.1); color: var(--success);">
+            <i class="fas fa-users"></i>
+        </div>
+        <div>
+            <div style="font-size: 14px; color: var(--text-muted); font-weight: 500;">Total Users</div>
+            <div style="font-size: 24px; font-weight: 800;"><?php echo $total_users; ?></div>
+        </div>
+    </div>
+    <div class="card stat-card">
+        <div class="stat-icon" style="background: rgba(255, 159, 28, 0.1); color: var(--warning);">
+            <i class="fas fa-folder"></i>
+        </div>
+        <div>
+            <div style="font-size: 14px; color: var(--text-muted); font-weight: 500;">Categories</div>
+            <div style="font-size: 24px; font-weight: 800;"><?php echo $total_categories; ?></div>
+        </div>
+    </div>
+    <div class="card stat-card">
+        <div class="stat-icon" style="background: rgba(76, 201, 240, 0.1); color: var(--info);">
+            <i class="fas fa-eye"></i>
+        </div>
+        <div>
+            <div style="font-size: 14px; color: var(--text-muted); font-weight: 500;">Total Views</div>
+            <div style="font-size: 24px; font-weight: 800;"><?php echo number_format($total_views); ?></div>
+        </div>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 2fr 1fr; gap: 30px; margin-bottom: 40px;">
+    <!-- Chart Card -->
+    <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+            <h3 style="font-weight: 700;">Traffic Analytics</h3>
+            <select class="form-control" style="width: auto; padding: 5px 15px;">
+                <option>Last 7 Days</option>
+                <option>Last 30 Days</option>
+            </select>
+        </div>
+        <canvas id="trafficChart" height="150"></canvas>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="card">
+        <h3 style="font-weight: 700; margin-bottom: 25px;">Quick Actions</h3>
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <a href="post-edit.php" class="btn btn-primary" style="justify-content: flex-start;">
+                <i class="fas fa-plus"></i> Create New Post
+            </a>
+            <a href="users.php" class="btn" style="justify-content: flex-start; background: var(--bg-body); border: 1px solid var(--border);">
+                <i class="fas fa-user-plus"></i> Add New User
+            </a>
+            <a href="settings.php" class="btn" style="justify-content: flex-start; background: var(--bg-body); border: 1px solid var(--border);">
+                <i class="fas fa-cog"></i> Site Settings
+            </a>
+        </div>
         
-        <div class="container" style="position: relative; z-index: 2; color: white;">
-            <div id="hero-content" style="max-width: 800px; display: none;">
-                <span id="hero-category" class="blog-category" style="background: rgba(79, 70, 229, 0.3); padding: 8px 20px; border-radius: 999px; margin-bottom: 2rem; display: inline-block;">Latest News</span>
-                <h1 id="hero-title" style="font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.1; margin-bottom: 1.5rem; text-shadow: 0 4px 10px rgba(0,0,0,0.5);">Loading Latest Article...</h1>
-                <p id="hero-desc" style="font-size: 1.2rem; line-height: 1.6; margin-bottom: 2.5rem; color: #cbd5e1;"></p>
-                <a id="hero-link" href="#" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.1rem; border-radius: 0.75rem; background: #4361ee; border: none;">Read Featured Article</a>
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border);">
+            <h4 style="font-size: 14px; color: var(--text-muted); margin-bottom: 15px;">Storage Usage</h4>
+            <div style="height: 8px; background: var(--bg-body); border-radius: 4px; overflow: hidden; margin-bottom: 10px;">
+                <div style="width: 45%; height: 100%; background: var(--primary);"></div>
             </div>
-            <div id="hero-loader" style="font-size: 1.5rem; padding-bottom: 15rem;">Searching for latest articles...</div>
+            <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600;">
+                <span>4.5 GB of 10 GB</span>
+                <span>45%</span>
+            </div>
         </div>
-    </header>
+    </div>
+</div>
 
-    <!-- 🟡 FRONTEND FIXES 5: ALL ARTICLES GRID -->
-    <section class="section-padding container">
-        <h2 style="margin-bottom: 3rem;">Recent <span class="text-gradient">Articles</span></h2>
-        <div id="articles-grid" class="blog-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2.5rem;">
-            <!-- Fetched from API -->
-        </div>
-    </section>
+<!-- Recent Activity Table -->
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+        <h3 style="font-weight: 700;">Recent Posts</h3>
+        <a href="posts.php" style="color: var(--primary); font-size: 14px; font-weight: 600;">View All</a>
+    </div>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Post Title</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Views</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($recent_posts as $post): ?>
+                <tr>
+                    <td>
+                        <div style="font-weight: 600; color: var(--text-main);"><?php echo $post['title']; ?></div>
+                        <div style="font-size: 12px; color: var(--text-muted);"><?php echo $post['slug']; ?></div>
+                    </td>
+                    <td><span style="padding: 5px 12px; background: var(--bg-body); border-radius: 20px; font-size: 12px; font-weight: 600;"><?php echo $post['category_name'] ?: 'Uncategorized'; ?></span></td>
+                    <td>
+                        <span style="padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; <?php echo ($post['status'] == 'published') ? 'background: rgba(46, 196, 182, 0.1); color: var(--success);' : 'background: rgba(128, 129, 145, 0.1); color: var(--text-muted);'; ?>">
+                            <?php echo ucfirst($post['status']); ?>
+                        </span>
+                    </td>
+                    <td style="font-size: 14px; color: var(--text-muted);"><?php echo date('M d, Y', strtotime($post['created_at'])); ?></td>
+                    <td style="font-weight: 700;"><?php echo number_format($post['views']); ?></td>
+                </tr>
+                <?php endforeach; if (empty($recent_posts)): ?>
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 40px; color: var(--text-muted);">No posts found. Start by creating your first post!</td>
+                </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-    <!-- 🟡 FRONTEND FIXES 1: FETCH ARTICLES JS -->
-    <script>
-        async function fetchArticles() {
-            try {
-                // 🟡 API URL: /api/articles.php (Relative to root)
-                const response = await fetch('api/articles.php');
-                if (!response.ok) throw new Error("API Error: " + response.status);
-                const articles = await response.json();
-
-                if (articles.length === 0) {
-                    document.getElementById('hero-loader').innerText = "No articles found in the database.";
-                    return;
-                }
-
-                // 🟡 SORTING: Already done by backend ORDER BY created_at DESC
-                // 1. First article (latest) for hero
-                renderHero(articles[0]);
-
-                // 2. Remaining articles for grid
-                const remaining = articles.slice(1);
-                renderGrid(remaining);
-
-            } catch (err) {
-                console.error("Fetch failed:", err);
-                document.getElementById('hero-loader').innerHTML = `<span style="color: #ef4444;">Error: ${err.message}</span>`;
+<script>
+    // Traffic Chart
+    const ctx = document.getElementById('trafficChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            datasets: [{
+                label: 'Visitors',
+                data: [1200, 1900, 1500, 2500, 2200, 3000, 2800],
+                borderColor: '#4361ee',
+                backgroundColor: 'rgba(67, 97, 238, 0.1)',
+                fill: true,
+                tension: 0.4,
+                pointRadius: 4,
+                pointBackgroundColor: '#4361ee'
+            }, {
+                label: 'Views',
+                data: [3500, 4200, 3800, 5000, 4800, 6000, 5800],
+                borderColor: '#4cc9f0',
+                backgroundColor: 'transparent',
+                fill: false,
+                tension: 0.4,
+                pointRadius: 0
+            }]
+        },
+        options: {
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: { grid: { display: false }, ticks: { font: { size: 10 } } },
+                x: { grid: { display: false }, ticks: { font: { size: 10 } } }
             }
         }
+    });
+</script>
 
-        function renderHero(article) {
-            document.getElementById('hero-loader').style.display = 'none';
-            document.getElementById('hero-content').style.display = 'block';
-
-            document.getElementById('hero-title').innerText = article.title;
-            document.getElementById('hero-desc').innerText = article.excerpt || article.content.substring(0, 200).replace(/<[^>]*>/g, '') + '...';
-            document.getElementById('hero-category').innerText = article.category_name || 'Latest Content';
-            document.getElementById('hero-link').href = `article.php?slug=${article.slug}`;
-
-            // 🟡 FRONTEND FIXES 4: BACKGROUND IMAGE FIX
-            const imgPath = article.featured_image ? 'uploads/' + article.featured_image : 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1600&q=90';
-            document.getElementById('hero-bg').style.background = `url("${imgPath}") center/cover no-repeat`;
-        }
-
-        function renderGrid(articles) {
-            const grid = document.getElementById('articles-grid');
-            if (articles.length === 0) {
-                grid.innerHTML = '<p style="color: grey;">Check back soon for more articles!</p>';
-                return;
-            }
-
-            grid.innerHTML = articles.map(a => `
-                <article class="blog-card" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 1rem; overflow: hidden; transition: transform 0.3s ease;">
-                    <a href="article.php?slug=${a.slug}"><img src="${a.featured_image ? 'uploads/' + a.featured_image : 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=400&q=80'}" style="width: 100%; height: 200px; object-fit: cover;"></a>
-                    <div style="padding: 1.5rem;">
-                        <span style="font-size: 0.75rem; font-weight: 700; color: #4361ee; text-transform: uppercase;">${a.category_name || 'Article'}</span>
-                        <h3 style="margin: 0.75rem 0; font-size: 1.25rem;"><a href="article.php?slug=${a.slug}" style="color: inherit; text-decoration: none;">${a.title}</a></h3>
-                        <p style="font-size: 0.95rem; color: #64748b; line-height: 1.5; margin-bottom: 1.5rem;">${a.excerpt || a.content.substring(0, 100).replace(/<[^>]*>/g, '') + '...'}</p>
-                        <a href="article.php?slug=${a.slug}" style="font-weight: 600; text-decoration: underline; color: #4361ee;">Read Full Post</a>
-                    </div>
-                </article>
-            `).join('');
-        }
-
-        // Initialize
-        fetchArticles();
-    </script>
-
-    <footer class="footer" style="padding: 4rem 0; border-top: 1px solid var(--border-color); margin-top: 5rem; text-align: center;">
-        <p>&copy; <?php echo date('Y'); ?> Knowledge-hud. Powered by Dynamic API Sync.</p>
-    </footer>
-
-</body>
-</html>
+<?php include_once 'partials/footer.php'; ?>
