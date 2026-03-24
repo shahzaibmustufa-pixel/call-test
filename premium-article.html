@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Meta SEO -->
+    <title>The Future of General Artificial Intelligence | Forbes Style</title>
+    <meta name="description" content="Discover the comprehensive guide to General Artificial Intelligence, exploring its challenges, future timeline, and societal impact.">
+    <meta name="keywords" content="AI, Artificial Intelligence, Technology, Future, AGI">
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="The Future of General Artificial Intelligence">
+    <meta property="og:description" content="Discover the comprehensive guide to General Artificial Intelligence, exploring its challenges, future timeline, and societal impact.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200">
+    <meta property="og:type" content="article">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Reset & Variables */
+        :root {
+            /* Light Theme (Forbes-style clean, crisp, premium) */
+            --bg-color: #ffffff;
+            --bg-secondary: #f9f9fb;
+            --bg-tertiary: #f0f0f5;
+            --text-main: #111111;
+            --text-muted: #555555;
+            --text-light: #888888;
+            --accent: #d80000; /* Subtle premium red/blue */
+            --accent-hover: #b00000;
+            --border: #e2e2e2;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+            --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+            --radius: 4px;
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --bg-secondary: #1e1e1e;
+            --bg-tertiary: #2a2a2a;
+            --text-main: #ffffff;
+            --text-muted: #b3b3b3;
+            --text-light: #777777;
+            --accent: #ff4d4d;
+            --accent-hover: #ff7373;
+            --border: #333333;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.4);
+            --shadow-md: 0 8px 24px rgba(0,0,0,0.6);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            transition: var(--transition);
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; height: auto; display: block; border-radius: var(--radius); }
+        ul { list-style: none; }
+        
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+
+        /* Reading Progress Bar */
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--accent);
+            width: 0%;
+            z-index: 1000;
+            transition: width 0.1s;
+        }
+
+        /* 1. Header Section */
+        header {
+            background-color: var(--bg-color);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            padding: 15px 0;
+            transition: var(--transition);
+        }
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-link {
+            font-weight: 500;
+            font-size: 15px;
+            color: var(--text-main);
+            transition: var(--transition);
+        }
+        .nav-link:hover { color: var(--accent); }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .search-bar input {
+            padding: 8px 15px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: var(--bg-secondary);
+            color: var(--text-main);
+            outline: none;
+            transition: var(--transition);
+        }
+        .search-bar input:focus { border-color: var(--accent); }
+        
+        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            transition: var(--transition);
+        }
+        .icon-btn:hover { background: var(--bg-tertiary); }
+
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; border: none; background: none; }
+        .hamburger span { width: 25px; height: 2px; background: var(--text-main); transition: 0.3s; }
+
+        /* 2. Article Hero Section */
+        .hero {
+            padding: 60px 0 40px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .category-tag {
+            display: inline-block;
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: 48px;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            color: var(--text-main);
+        }
+        .article-meta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+        .author-info { display: flex; align-items: center; gap: 10px; }
+        .author-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+        .meta-divider { width: 4px; height: 4px; background: var(--border); border-radius: 50%; }
+
+        .hero-image {
+            width: 100%;
+            max-height: 600px;
+            object-fit: cover;
+            margin-top: 40px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Layout Grid */
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 60px;
+            padding: 60px 0;
+            position: relative;
+        }
+
+        /* 3. Article Content Section */
+        .content {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--text-main);
+        }
+        .content h2 {
+            font-family: var(--font-heading);
+            font-size: 32px;
+            margin: 40px 0 20px;
+            line-height: 1.3;
+        }
+        .content h3 {
+            font-size: 24px;
+            margin: 30px 0 15px;
+        }
+        .content p { margin-bottom: 25px; }
+        .content p.dropcap::first-letter {
+            font-family: var(--font-heading);
+            float: left;
+            font-size: 80px;
+            line-height: 60px;
+            padding-top: 4px;
+            padding-right: 12px;
+            padding-left: 3px;
+            color: var(--accent);
+        }
+        .content ul {
+            margin-bottom: 25px;
+            padding-left: 20px;
+            list-style-type: disc;
+        }
+        .content li { margin-bottom: 10px; }
+        
+        .content blockquote {
+            font-family: var(--font-heading);
+            font-size: 26px;
+            font-style: italic;
+            line-height: 1.4;
+            border-left: 4px solid var(--accent);
+            padding: 20px 0 20px 30px;
+            margin: 40px 0;
+            color: var(--text-muted);
+            background: var(--bg-secondary);
+        }
+        
+        .highlight {
+            background-color: rgba(216, 0, 0, 0.1);
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 40px 0;
+            font-size: 16px;
+        }
+        .content th, .content td {
+            border: 1px solid var(--border);
+            padding: 15px;
+            text-align: left;
+        }
+        .content th { background: var(--bg-tertiary); font-weight: 600; }
+
+        /* 4. Sticky Sidebar */
+        .sidebar-inner {
+            position: sticky;
+            top: 100px;
+        }
+        .widget {
+            margin-bottom: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+        }
+        .widget:last-child { border-bottom: none; }
+        .widget-title {
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .widget-title::before {
+            content: '';
+            width: 4px;
+            height: 18px;
+            background: var(--accent);
+        }
+
+        /* TOC */
+        .toc-list li { margin-bottom: 12px; }
+        .toc-list a {
+            color: var(--text-muted);
+            font-size: 15px;
+            transition: var(--transition);
+            display: block;
+        }
+        .toc-list a:hover, .toc-list a.active { color: var(--accent); font-weight: 500; padding-left: 5px; }
+
+        /* Side Posts */
+        .side-post {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        .side-post img { width: 80px; height: 80px; object-fit: cover; border-radius: var(--radius); }
+        .side-post h4 { font-size: 15px; line-height: 1.4; margin-bottom: 5px; }
+        .side-post h4 a { transition: var(--transition); }
+        .side-post h4 a:hover { color: var(--accent); }
+        .side-post span { font-size: 12px; color: var(--text-light); }
+
+        /* Newsletter */
+        .newsletter-box {
+            background: var(--bg-secondary);
+            padding: 25px;
+            border-radius: var(--radius);
+            text-align: center;
+        }
+        .newsletter-box h3 { font-size: 20px; margin-bottom: 10px; }
+        .newsletter-box p { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
+        .newsletter-box input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin-bottom: 15px;
+            background: var(--bg-color);
+            color: var(--text-main);
+        }
+        .newsletter-box button {
+            width: 100%;
+            padding: 12px;
+            background: var(--text-main);
+            color: var(--bg-color);
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .newsletter-box button:hover { background: var(--accent); color: #fff;}
+
+        /* Floating Share Box in Sidebar */
+        .share-icons { display: flex; gap: 10px; }
+        .share-icon {
+            width: 36px; height: 36px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%;
+            background: var(--bg-tertiary);
+            color: var(--text-main);
+            transition: var(--transition);
+        }
+        .share-icon:hover { background: var(--accent); color: #fff; transform: translateY(-3px); }
+
+        /* 5. Engagement Section */
+        .engagement {
+            margin: 60px 0;
+            padding: 30px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .like-btn {
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px 20px;
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            background: var(--bg-color);
+            color: var(--text-main);
+            font-weight: 600; cursor: pointer; transition: var(--transition);
+        }
+        .like-btn.liked { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+        .author-box {
+            display: flex;
+            gap: 20px;
+            padding: 40px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin-bottom: 60px;
+        }
+        .author-box img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; }
+        .author-box h3 { font-size: 22px; margin-bottom: 10px; }
+        .author-box p { color: var(--text-muted); font-size: 15px; line-height: 1.6; }
+
+        /* Comments UI */
+        .comments-section h3 { font-size: 24px; margin-bottom: 30px; border-bottom: 2px solid var(--border); padding-bottom: 15px; }
+        .comment-form { display: grid; gap: 15px; margin-bottom: 40px; }
+        .comment-form textarea, .comment-form input {
+            width: 100%; padding: 15px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-secondary); color: var(--text-main); font-family: var(--font-body);
+        }
+        .comment-form button {
+            padding: 12px 30px; background: var(--text-main); color: var(--bg-color); border: none; border-radius: var(--radius); font-weight: 600; cursor: pointer; width: fit-content; transition: 0.3s;
+        }
+        .comment-form button:hover { background: var(--accent); color:#fff;}
+        .comment { display: flex; gap: 15px; margin-bottom: 30px; }
+        .comment img { width: 50px; height: 50px; border-radius: 50%; }
+        .comment h5 { font-size: 16px; margin-bottom: 5px; }
+        .comment span { font-size: 12px; color: var(--text-light); margin-left:10px; font-weight:normal;}
+        .comment p { font-size: 15px; color: var(--text-muted); }
+
+        /* 6. Related Articles */
+        .related-section {
+            background: var(--bg-secondary);
+            padding: 80px 0;
+            border-top: 1px solid var(--border);
+        }
+        .related-section h2 { font-family: var(--font-heading); font-size: 32px; text-align: center; margin-bottom: 50px; }
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .related-card {
+            background: var(--bg-color);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+        .related-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+        .related-card img { width: 100%; height: 200px; object-fit: cover; border-radius: 0; }
+        .related-content { padding: 25px; }
+        .related-content .tag { font-size: 12px; color: var(--accent); font-weight: 700; text-transform: uppercase; margin-bottom:10px; display:block;}
+        .related-content h3 { font-size: 20px; line-height: 1.4; margin-bottom: 15px; }
+        .related-content h3 a { transition: 0.3s; }
+        .related-content h3 a:hover { color: var(--accent); }
+
+        /* Custom Back to top */
+        #back-to-top {
+            position: fixed; bottom: 30px; right: 30px;
+            width: 45px; height: 45px;
+            background: var(--accent); color: #fff;
+            border: none; border-radius: 50%;
+            font-size: 20px; cursor: pointer;
+            box-shadow: var(--shadow-md);
+            opacity: 0; visibility: hidden; transition: var(--transition); z-index: 999;
+        }
+        #back-to-top.show { opacity: 1; visibility: visible; }
+        #back-to-top:hover { transform: translateY(-5px); }
+
+        footer { background: var(--bg-color); padding: 40px 0; text-align: center; border-top: 1px solid var(--border); color: var(--text-muted); }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .layout { grid-template-columns: 1fr; }
+            .sidebar-inner { position: static; }
+            .related-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero h1 { font-size: 38px; }
+        }
+        @media (max-width: 768px) {
+            .nav-menu, .search-bar { display: none; }
+            .hamburger { display: flex; }
+            
+            /* Mobile menu active */
+            .nav-menu.active {
+                display: flex; flex-direction: column;
+                position: absolute; top: 100%; left: 0; width: 100%;
+                background: var(--bg-color); padding: 20px;
+                border-bottom: 1px solid var(--border);
+                box-shadow: var(--shadow-md);
+            }
+            .hero h1 { font-size: 32px; }
+            .related-grid { grid-template-columns: 1fr; }
+            .author-box { flex-direction: column; text-align: center; }
+            .engagement { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Reading Progress Bar -->
+    <div id="progress-bar"></div>
+
+    <!-- 1. Header Section -->
+    <header>
+        <div class="container nav-wrapper">
+            <a href="#" class="logo">Forbes<span style="color:var(--accent);">Clone</span></a>
+            
+            <nav class="nav-menu" id="nav-menu">
+                <a href="#" class="nav-link">Home</a>
+                <a href="#" class="nav-link">Categories</a>
+                <a href="#" class="nav-link">Technology</a>
+                <a href="#" class="nav-link">About</a>
+                <a href="#" class="nav-link">Contact</a>
+            </nav>
+
+            <div class="header-actions">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search articles...">
+                </div>
+                <button class="icon-btn" id="theme-toggle" aria-label="Toggle Dark Mode">
+                    🌙
+                </button>
+                <button class="hamburger" id="hamburger" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 2. Article Hero Section -->
+        <article>
+            <div class="container">
+                <div class="hero">
+                    <span class="category-tag">Innovation & Tech</span>
+                    <h1>The Future of General Artificial Intelligence: A Comprehensive Exploration</h1>
+                    
+                    <div class="article-meta">
+                        <div class="author-info">
+                            <img src="https://ui-avatars.com/api/?name=Sarah+Jenkins&background=random" alt="Sarah Jenkins" class="author-avatar" loading="lazy">
+                            <span style="font-weight:600; color:var(--text-main);">By Sarah Jenkins</span>
+                        </div>
+                        <div class="meta-divider"></div>
+                        <span>Published Mar 24, 2026</span>
+                        <div class="meta-divider"></div>
+                        <span>12 Min Read</span>
+                    </div>
+
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80" alt="Futuristic AI Brain" class="hero-image" loading="lazy">
+                </div>
+
+                <div class="layout">
+                    <!-- 3. Article Content Section -->
+                    <div class="content">
+                        
+                        <p class="dropcap">Artificial intelligence is no longer just a concept relegated to science fiction novels or high-tech research labs. Today, AI is an integral part of our daily lives, quietly revolutionizing how we work, communicate, and navigate the world. But the real horizon lies much further ahead.</p>
+                        
+                        <p>From the moment you wake up to the time you go to sleep, algorithms are working behind the scenes to optimize your experience. Whether it's the personalized news feed keeping you informed or the smart thermostat adjusting your home's temperature, AI is everywhere. The industry is now looking toward <strong class="highlight">Artificial General Intelligence (AGI)</strong>.</p>
+                        
+                        <h2 id="section-1">What Exactly is AGI?</h2>
+                        <p>Artificial General Intelligence refers to a machine's ability to understand, learn, and apply knowledge across a wide variety of independent domains—much like a human being. The distinction is critical: while narrow AI is hyper-specialized, AGI is fundamentally adaptable.</p>
+                        
+                        <ul>
+                            <li><strong>Narrow AI:</strong> Designed to perform one specific task (e.g., text translation, playing chess).</li>
+                            <li><strong>General AI:</strong> Designed to adapt to unseen situations, reason logically, and transfer context across domains.</li>
+                            <li><strong>Super AI:</strong> Hypothetical AI that significantly surpasses human cognitive capabilities.</li>
+                        </ul>
+
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80" alt="Tech circuit board" loading="lazy" style="margin: 40px 0; width:100%; border-radius: var(--radius); box-shadow: var(--shadow-sm);">
+
+                        <h2 id="section-2">The Monumental Challenges</h2>
+                        <p>Despite remarkable advances in Large Language Models (LLMs) and generative algorithms, the path to AGI is blocked by several monumental engineering and philosophical challenges.</p>
+
+                        <blockquote>
+                            "The development of full artificial intelligence could spell the end of the human race. It would take off on its own, and re-design itself at an ever increasing rate." <br><span style="font-size:16px; font-family:var(--font-body);">&mdash; Stephen Hawking</span>
+                        </blockquote>
+
+                        <h3 id="section-3">Hardware and Energy Bottlenecks</h3>
+                        <p>Current models manipulate symbols and words according to statistical probabilities. Training cutting-edge models currently requires enormous data centers burning megawatts of electricity. The human brain runs on about 20 watts of power—the equivalent of a dim lightbulb. Bridging this efficiency gap is perhaps the greatest hardware challenge of our era.</p>
+
+                        <!-- Table Example -->
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Era</th>
+                                    <th>AI Capability</th>
+                                    <th>Compute Scale</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2010s</td>
+                                    <td>Pattern Recognition</td>
+                                    <td>GPU Clusters</td>
+                                </tr>
+                                <tr>
+                                    <td>2020s</td>
+                                    <td>Generative Creation</td>
+                                    <td>Massive Cloud TPUs</td>
+                                </tr>
+                                <tr>
+                                    <td>2030s (Est)</td>
+                                    <td>Autonomous Reasoning</td>
+                                    <td>Neuromorphic Chips</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h2 id="section-4">Economic & Societal Impact</h2>
+                        <p>If AGI is achieved, its impact will be more profound than the discovery of electricity or the invention of the internet. By outsourcing advanced cognitive labor, humanity could theoretically solve complex issues like climate change, disease, and resource scarcity in a fraction of the time.</p>
+                        
+                        <p>Conversely, the economic displacement would be unprecedented. The transition period would require radical societal restructuring—perhaps implementing global Universal Basic Income (UBI) frameworks or fundamentally redefining the human relationship with work.</p>
+
+                        <!-- 5. Engagement Section -->
+                        <div class="engagement">
+                            <div style="display:flex; gap:15px; align-items:center;">
+                                <button class="like-btn" id="like-btn">
+                                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                    <span id="like-count">1.2k Likes</span>
+                                </button>
+                            </div>
+                            <div class="share-icons">
+                                <span style="font-weight:600; font-size:14px; margin-right:5px; align-self:center;">Share:</span>
+                                <a href="#" class="share-icon">fb</a>
+                                <a href="#" class="share-icon">tw</a>
+                                <a href="#" class="share-icon">in</a>
+                            </div>
+                        </div>
+
+                        <!-- Author Bio -->
+                        <div class="author-box">
+                            <img src="https://ui-avatars.com/api/?name=Sarah+Jenkins&background=random" alt="Sarah Jenkins" loading="lazy">
+                            <div>
+                                <h3>Sarah Jenkins</h3>
+                                <p>Sarah is a Senior Technology Correspondent covering artificial intelligence, quantum computing, and future ethics. She has spent over a decade documenting the rapid evolution of Silicon Valley.</p>
+                            </div>
+                        </div>
+
+                        <!-- Comments UI -->
+                        <div class="comments-section" id="comments">
+                            <h3>Discussion (3 Comments)</h3>
+                            <div class="comment-form">
+                                <input type="text" placeholder="Your Name" required>
+                                <textarea rows="4" placeholder="Share your thoughts..." required></textarea>
+                                <button type="button">Post Comment</button>
+                            </div>
+
+                            <div class="comment">
+                                <img src="https://ui-avatars.com/api/?name=John+Doe&background=random" alt="User" loading="lazy">
+                                <div>
+                                    <h5>John Doe <span>2 hours ago</span></h5>
+                                    <p>Absolutely fascinating read. The energy bottleneck is something few people consider when hyping up general AI.</p>
+                                </div>
+                            </div>
+                            <div class="comment">
+                                <img src="https://ui-avatars.com/api/?name=Alex+M&background=random" alt="User" loading="lazy">
+                                <div>
+                                    <h5>Alex M. <span>5 hours ago</span></h5>
+                                    <p>I feel like the timeline optimists are ignoring edge-case limitations in current Transformer models. Great breakdown!</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- 4. Sticky Sidebar -->
+                    <aside>
+                        <div class="sidebar-inner">
+                            <!-- Table of Contents -->
+                            <div class="widget">
+                                <h3 class="widget-title">In This Article</h3>
+                                <ul class="toc-list" id="toc">
+                                    <li><a href="#section-1" class="toc-link">What Exactly is AGI?</a></li>
+                                    <li><a href="#section-2" class="toc-link">The Monumental Challenges</a></li>
+                                    <li><a href="#section-3" class="toc-link">Hardware and Energy</a></li>
+                                    <li><a href="#section-4" class="toc-link">Economic Impact</a></li>
+                                    <li><a href="#comments" class="toc-link">Discussion</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- Newsletter -->
+                            <div class="widget">
+                                <div class="newsletter-box">
+                                    <h3>Stay Ahead</h3>
+                                    <p>Get the latest tech news and deep-dive analysis delivered straight to your inbox daily.</p>
+                                    <input type="email" placeholder="Your email address">
+                                    <button>Subscribe Now</button>
+                                </div>
+                            </div>
+
+                            <!-- Popular Posts -->
+                            <div class="widget">
+                                <h3 class="widget-title">Popular Reads</h3>
+                                <div class="side-post">
+                                    <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=150&q=80" alt="Post" loading="lazy">
+                                    <div>
+                                        <h4><a href="#">The Truth About Web3 and Decentralization</a></h4>
+                                        <span>Mar 22, 2026</span>
+                                    </div>
+                                </div>
+                                <div class="side-post">
+                                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=150&q=80" alt="Post" loading="lazy">
+                                    <div>
+                                        <h4><a href="#">Mastering the Remote Work Revolution</a></h4>
+                                        <span>Mar 20, 2026</span>
+                                    </div>
+                                </div>
+                                <div class="side-post">
+                                    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=150&q=80" alt="Post" loading="lazy">
+                                    <div>
+                                        <h4><a href="#">Data Privacy: The Silicon Valley Crisis</a></h4>
+                                        <span>Mar 18, 2026</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </article>
+
+        <!-- 6. Related Articles -->
+        <section class="related-section">
+            <div class="container">
+                <h2>Continue Reading</h2>
+                <div class="related-grid">
+                    <article class="related-card">
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=600&q=80" alt="Cybersecurity" loading="lazy">
+                        <div class="related-content">
+                            <span class="tag">Security</span>
+                            <h3><a href="#">Zero-Day Threats: Preparing for the Worst in 2026</a></h3>
+                            <p style="color:var(--text-muted); font-size:14px; margin-top:10px;">By David Chen &bull; 8 min read</p>
+                        </div>
+                    </article>
+                    <article class="related-card">
+                        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=600&q=80" alt="Social Media" loading="lazy">
+                        <div class="related-content">
+                            <span class="tag">Business</span>
+                            <h3><a href="#">The Slow Fall of Traditional Social Media Networks</a></h3>
+                            <p style="color:var(--text-muted); font-size:14px; margin-top:10px;">By Elena Rossi &bull; 6 min read</p>
+                        </div>
+                    </article>
+                    <article class="related-card">
+                        <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=600&q=80" alt="Finance" loading="lazy">
+                        <div class="related-content">
+                            <span class="tag">Finance</span>
+                            <h3><a href="#">Algorithmic Trading's Takeover of Global Markets</a></h3>
+                            <p style="color:var(--text-muted); font-size:14px; margin-top:10px;">By Marcus Vance &bull; 10 min read</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 ForbesClone Inc. All rights reserved. Designed for excellence.</p>
+        </div>
+    </footer>
+
+    <!-- Back to top -->
+    <button id="back-to-top" aria-label="Back to Top">&uarr;</button>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Theme Toggle
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const body = document.body;
+            
+            // Check local storage
+            let savedTheme = localStorage.getItem('article_theme');
+            if (savedTheme === 'dark') {
+                body.setAttribute('data-theme', 'dark');
+                themeToggleBtn.innerText = '☀️';
+            }
+
+            themeToggleBtn.addEventListener('click', () => {
+                if(body.getAttribute('data-theme') === 'dark') {
+                    body.removeAttribute('data-theme');
+                    localStorage.setItem('article_theme', 'light');
+                    themeToggleBtn.innerText = '🌙';
+                } else {
+                    body.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('article_theme', 'dark');
+                    themeToggleBtn.innerText = '☀️';
+                }
+            });
+
+            // 2. Mobile Menu Toggle
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-menu');
+            
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+
+            // 3. Reading Progress Bar & Back to Top
+            const progressBar = document.getElementById('progress-bar');
+            const backToTopBtn = document.getElementById('back-to-top');
+
+            window.addEventListener('scroll', () => {
+                // Progress Bar
+                let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                let scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                let progress = (scrollTop / scrollHeight) * 100;
+                progressBar.style.width = progress + '%';
+
+                // Back to Top Visibility
+                if (scrollTop > 500) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+            });
+
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // 4. Like Button Interaction
+            const likeBtn = document.getElementById('like-btn');
+            const likeCount = document.getElementById('like-count');
+            let isLiked = false;
+
+            likeBtn.addEventListener('click', () => {
+                isLiked = !isLiked;
+                if(isLiked) {
+                    likeBtn.classList.add('liked');
+                    likeCount.innerText = "1.2k Likes (You Liked)";
+                } else {
+                    likeBtn.classList.remove('liked');
+                    likeCount.innerText = "1.2k Likes";
+                }
+            });
+
+            // 5. Smooth Scroll for TOC & highlighting active section
+            const tocLinks = document.querySelectorAll('.toc-link');
+            const sections = Array.from(tocLinks).map(link => document.querySelector(link.getAttribute('href')));
+
+            tocLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 120, // offset for sticky header
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 150) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                tocLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

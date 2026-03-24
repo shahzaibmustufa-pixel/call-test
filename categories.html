@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories - Knowledge-hud</title>
+    <meta name="description" content="Browse through our collection of premium articles on technology, lifestyle, business, and more.">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Knowledge<span>-hud</span></a>
+            
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="blog.html" class="nav-link">Blog</a></li>
+                <li><a href="categories.html" class="nav-link active">Categories</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+
+            <div class="nav-right" style="display: flex; gap: 1rem; align-items: center;">
+                <div class="nav-search" style="position: relative; display: none;">
+                    <input type="text" id="nav-search-input" placeholder="Search..." style="padding: 0.5rem 1rem; border-radius: 9999px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary); outline: none;">
+                </div>
+                <button class="search-toggle" aria-label="Toggle Search" style="background: transparent; border: none; color: var(--text-primary); cursor: pointer;" onclick="document.querySelector('.nav-search').style.display = document.querySelector('.nav-search').style.display === 'block' ? 'none' : 'block';">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </button>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Dark Mode" style="width: auto; padding: 0 1rem; border-radius: 9999px;">
+                    <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                    <span id="theme-text" style="margin-left: 0.5rem; font-weight: 500; font-size: 0.9rem;">Dark Mode</span>
+                </button>
+                <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Menu">
+                    <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="section-padding" style="padding-top: 120px; text-align: center; background: var(--bg-secondary);">
+        <div class="container">
+            <h1>Explore by <span class="text-gradient">Category</span></h1>
+            <p style="max-width: 600px; margin: 1rem auto 0;">Find exactly what you are looking for by filtering our comprehensive collection of articles by topic.</p>
+        </div>
+    </header>
+
+    <!-- Blog Content -->
+    <section class="section-padding container">
+        
+        <!-- Search Filter -->
+        
+        <!-- Category Filter Buttons -->
+        <div class="category-filters" style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem;">
+            <button class="btn btn-outline filter-btn active" data-filter="all" style="border-color: var(--accent-primary); color: var(--accent-primary) !important;">All</button>
+            <button class="btn btn-outline filter-btn" data-filter="technology">Technology</button>
+            <button class="btn btn-outline filter-btn" data-filter="business">Business</button>
+            <button class="btn btn-outline filter-btn" data-filter="lifestyle">Lifestyle</button>
+            <button class="btn btn-outline filter-btn" data-filter="design">Design</button>
+        </div>
+
+        <div class="search-container">
+            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input type="text" id="blog-search" class="search-input" placeholder="Search articles by title, category, or keyword...">
+        </div>
+
+        <div id="no-results" style="display: none; text-align: center; padding: 3rem 0; color: var(--text-tertiary);">
+            <h3>No articles found</h3>
+            <p>Please try adjusting your search terms.</p>
+        </div>
+
+        <div class="blog-grid" id="blog-list">
+            
+            <!-- Article 1 -->
+            <article class="blog-card">
+                <a href="article.html" class="blog-image-link" style="display: block;"><img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80" alt="Article Image" class="blog-image"></a>
+                <div class="blog-content">
+                    <span class="blog-category">Technology</span>
+                    <h3 class="blog-title"><a href="article.html" style="color: inherit; text-decoration: none;">The Future of AI in Daily Life</a></h3>
+                    <p class="blog-excerpt">How artificial intelligence is quietly revolutionizing how we work, communicate, and live our everyday lives.</p>
+                    <a href="article.html" style="margin-bottom: 1rem; font-weight: 600; font-size: 0.9rem; text-decoration: underline; display: inline-block;">Read More</a>
+                    <div class="blog-meta">
+                        <span>By Sarah Jenkins</span>
+                        <span>Mar 18, 2026</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Article 2 -->
+            <article class="blog-card">
+                <a href="article.html" class="blog-image-link" style="display: block;"><img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80" alt="Article Image" class="blog-image"></a>
+                <div class="blog-content">
+                    <span class="blog-category">Business</span>
+                    <h3 class="blog-title"><a href="article.html" style="color: inherit; text-decoration: none;">Mastering the Remote Workspace</a></h3>
+                    <p class="blog-excerpt">Essential strategies for maintaining peak productivity and mental health while working from home full-time.</p>
+                    <a href="article.html" style="margin-bottom: 1rem; font-weight: 600; font-size: 0.9rem; text-decoration: underline; display: inline-block;">Read More</a>
+                    <div class="blog-meta">
+                        <span>By David Chen</span>
+                        <span>Mar 15, 2026</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Article 3 -->
+            <article class="blog-card">
+                <a href="article.html" class="blog-image-link" style="display: block;"><img src="https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&w=800&q=80" alt="Article Image" class="blog-image"></a>
+                <div class="blog-content">
+                    <span class="blog-category">Lifestyle</span>
+                    <h3 class="blog-title"><a href="article.html" style="color: inherit; text-decoration: none;">The Art of Mindful Living</a></h3>
+                    <p class="blog-excerpt">Actionable tips for incorporating genuine mindfulness practices into your busy modern schedule without disrupting workflow.</p>
+                    <a href="article.html" style="margin-bottom: 1rem; font-weight: 600; font-size: 0.9rem; text-decoration: underline; display: inline-block;">Read More</a>
+                    <div class="blog-meta">
+                        <span>By Elena Rossi</span>
+                        <span>Mar 12, 2026</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Article 4 -->
+            <article class="blog-card">
+                <a href="article.html" class="blog-image-link" style="display: block;"><img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=800&q=80" alt="Article Image" class="blog-image"></a>
+                <div class="blog-content">
+                    <span class="blog-category">Design</span>
+                    <h3 class="blog-title"><a href="article.html" style="color: inherit; text-decoration: none;">UI Trends to Watch in 2026</a></h3>
+                    <p class="blog-excerpt">From glassmorphism to bento grids: a comprehensive look at the visual trends dominating user interfaces this year.</p>
+                    <a href="article.html" style="margin-bottom: 1rem; font-weight: 600; font-size: 0.9rem; text-decoration: underline; display: inline-block;">Read More</a>
+                    <div class="blog-meta">
+                        <span>By Marcus Doe</span>
+                        <span>Mar 08, 2026</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Article 5 -->
+            <article class="blog-card">
+                <a href="article.html" class="blog-image-link" style="display: block;"><img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=800&q=80" alt="Article Image" class="blog-image"></a>
+                <div class="blog-content">
+                    <span class="blog-category">Technology</span>
+                    <h3 class="blog-title"><a href="article.html" style="color: inherit; text-decoration: none;">Understanding Web3 Fundamentals</a></h3>
+                    <p class="blog-excerpt">A beginner-friendly guide to block-chain networks, decentralized applications, and the future of the internet.</p>
+                    <a href="article.html" style="margin-bottom: 1rem; font-weight: 600; font-size: 0.9rem; text-decoration: underline; display: inline-block;">Read More</a>
+                    <div class="blog-meta">
+                        <span>By Alice Williams</span>
+                        <span>Mar 05, 2026</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Article 6 -->
+            <article class="blog-card">
+                <a href="article.html" class="blog-image-link" style="display: block;"><img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80" alt="Article Image" class="blog-image"></a>
+                <div class="blog-content">
+                    <span class="blog-category">Business</span>
+                    <h3 class="blog-title"><a href="article.html" style="color: inherit; text-decoration: none;">Building a Resilient Startup</a></h3>
+                    <p class="blog-excerpt">Key business strategies to keep your company agile and prepared for unpredictable economic shifts.</p>
+                    <a href="article.html" style="margin-bottom: 1rem; font-weight: 600; font-size: 0.9rem; text-decoration: underline; display: inline-block;">Read More</a>
+                    <div class="blog-meta">
+                        <span>By Jordan Lee</span>
+                        <span>Feb 28, 2026</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Article 7 -->
+            <article class="blog-card">
+                <a href="article.html" class="blog-image-link" style="display: block;"><img src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=800&q=80" alt="Article Image" class="blog-image"></a>
+                <div class="blog-content">
+                    <span class="blog-category">Lifestyle</span>
+                    <h3 class="blog-title"><a href="article.html" style="color: inherit; text-decoration: none;">Optimizing Your Sleep Schedule</a></h3>
+                    <p class="blog-excerpt">Science-backed routines and habits that guarantee better rest and higher daily energy levels.</p>
+                    <a href="article.html" style="margin-bottom: 1rem; font-weight: 600; font-size: 0.9rem; text-decoration: underline; display: inline-block;">Read More</a>
+                    <div class="blog-meta">
+                        <span>By Rachel Green</span>
+                        <span>Feb 22, 2026</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Article 8 -->
+            <article class="blog-card">
+                <a href="article.html" class="blog-image-link" style="display: block;"><img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80" alt="Article Image" class="blog-image"></a>
+                <div class="blog-content">
+                    <span class="blog-category">Technology</span>
+                    <h3 class="blog-title"><a href="article.html" style="color: inherit; text-decoration: none;">Data Privacy in the Modern Age</a></h3>
+                    <p class="blog-excerpt">Protecting your personal information online when applications and platforms constantly track activity.</p>
+                    <a href="article.html" style="margin-bottom: 1rem; font-weight: 600; font-size: 0.9rem; text-decoration: underline; display: inline-block;">Read More</a>
+                    <div class="blog-meta">
+                        <span>By Tech Analyst</span>
+                        <span>Feb 18, 2026</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Article 9 -->
+            <article class="blog-card">
+                <a href="article.html" class="blog-image-link" style="display: block;"><img src="https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?auto=format&fit=crop&w=800&q=80" alt="Article Image" class="blog-image"></a>
+                <div class="blog-content">
+                    <span class="blog-category">Design</span>
+                    <h3 class="blog-title"><a href="article.html" style="color: inherit; text-decoration: none;">The Psychology of Colors</a></h3>
+                    <p class="blog-excerpt">How color choices in branding and web design influence user behavior and brand perception fundamentally.</p>
+                    <a href="article.html" style="margin-bottom: 1rem; font-weight: 600; font-size: 0.9rem; text-decoration: underline; display: inline-block;">Read More</a>
+                    <div class="blog-meta">
+                        <span>By Sam Wright</span>
+                        <span>Feb 10, 2026</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Article 10 -->
+            <article class="blog-card">
+                <a href="article.html" class="blog-image-link" style="display: block;"><img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" alt="Article Image" class="blog-image"></a>
+                <div class="blog-content">
+                    <span class="blog-category">Business</span>
+                    <h3 class="blog-title"><a href="article.html" style="color: inherit; text-decoration: none;">Scaling Your Team Effectively</a></h3>
+                    <p class="blog-excerpt">Knowing when and how to hire the right personnel to elevate your company to the next level.</p>
+                    <a href="article.html" style="margin-bottom: 1rem; font-weight: 600; font-size: 0.9rem; text-decoration: underline; display: inline-block;">Read More</a>
+                    <div class="blog-meta">
+                        <span>By CEO Monthly</span>
+                        <span>Feb 05, 2026</span>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid" style="grid-template-columns: 1fr 1fr; gap: 4rem;">
+                <div class="footer-col">
+                    <a href="index.html" class="logo" style="margin-bottom: 1rem; display: block;">Knowledge<span>-hud</span></a>
+                    <p>Your premier destination for high-quality articles, insightful guides, and stories that matter.</p>
+                </div>
+                <div class="footer-col" style="display: flex; gap: 4rem;">
+                    <div>
+                        <h4>Explore</h4>
+                        <ul class="footer-links">
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Legal</h4>
+                        <ul class="footer-links">
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Knowledge-hud. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script src="js/script.js"></script>
+</body>
+</html>
